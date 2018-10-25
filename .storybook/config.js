@@ -1,5 +1,5 @@
 import React from 'react';
-import {configure} from '@kadira/storybook';
+import {configure} from '@storybook/react';
 
 configure(function () {
   require('../example/story');

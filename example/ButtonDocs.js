@@ -23,6 +23,12 @@ ButtonDocs.propTypes = {
    * Sets disabled flag on the button component
    */
   disabled: React.PropTypes.bool,
+  icons: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      type: React.PropTypes.string.isRequired,
+      color: React.PropTypes.string
+    })
+  ),
   /**
    * Click event handler function (receives an event)
    */

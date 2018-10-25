@@ -13,61 +13,17 @@
 "use strict";
 
 function generateTitle(name) {
-  var title = '`' + name + '`';
-  return title + '\n===\n';
+  return name + '\n===\n';
 }
 
 function generateDesciption(description) {
   return description + '\n';
 }
 
-function generatePropType(type) {
-  var values;
-  if (Array.isArray(type.value)) {
-    values = '(' +
-      type.value.map(function(typeValue) {
-        return typeValue.name || typeValue.value;
-      }).join('&#124;') +
-      ')';
-  } else {
-    values = type.value;
-  }
-
-  return type.name + (values ? values: '');
-}
-
-function generatePropDefaultValue(value) {
-  return '`' + value.value + '`';
-}
-
-function generateProp(propName, prop) {
-  return (
-    '|`' + propName + '`|' +
-    (prop.type ? generatePropType(prop.type) : '') + '|' +
-    (prop.required ? 'yes' : 'no') + '|' +
-    (prop.defaultValue ? generatePropDefaultValue(prop.defaultValue) : '') + '|' +
-    (prop.description ? prop.description : '') + '|'
-  );
-}
-
-function generateProps(props) {
-  var title = '|name|type|required|default|description|\n|---|---|---|---|---|\n';
-  if (!props) {
-    return title;
-  }
-  return (
-    title +
-    Object.keys(props).sort().map(function(propName) {
-      return generateProp(propName, props[propName]);
-    }).join('\n')
-  );
-}
-
 function generateMarkdown(reactAPI) {
   var markdownString =
     generateTitle(reactAPI.displayName) + '\n' +
-    generateDesciption(reactAPI.description) + '\n' +
-    generateProps(reactAPI.props);
+    generateDesciption(reactAPI.description);
 
   return markdownString;
 }
