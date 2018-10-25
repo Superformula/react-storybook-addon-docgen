@@ -10,7 +10,8 @@
   "scripts": {
     "lint": "eslint src",
     "lintfix": "eslint src --fix",
-    "storybook": "start-storybook -p 9010"
+    "storybook": "start-storybook -p 9010",
+    "build": "rm -rf ./dist && ./node_modules/.bin/babel --ignore tests,stories --plugins \"transform-runtime\" ./src --out-dir ./dist"
   },
   "devDependencies": {
     "@storybook/react": "^3.0.0",
