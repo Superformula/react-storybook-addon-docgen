@@ -12,54 +12,16 @@
  */
 "use strict";
 
-var _keys = require('babel-runtime/core-js/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function generateTitle(name) {
-  var title = '`' + name + '`';
-  return title + '\n===\n';
+  return name + '\n===\n';
 }
 
 function generateDesciption(description) {
   return description + '\n';
 }
 
-function generatePropType(type) {
-  var values;
-  if (Array.isArray(type.value)) {
-    values = '(' + type.value.map(function (typeValue) {
-      return typeValue.name || typeValue.value;
-    }).join('&#124;') + ')';
-  } else {
-    values = type.value;
-  }
-
-  return type.name + (values ? values : '');
-}
-
-function generatePropDefaultValue(value) {
-  return '`' + value.value + '`';
-}
-
-function generateProp(propName, prop) {
-  return '|`' + propName + '`|' + (prop.type ? generatePropType(prop.type) : '') + '|' + (prop.required ? 'yes' : 'no') + '|' + (prop.defaultValue ? generatePropDefaultValue(prop.defaultValue) : '') + '|' + (prop.description ? prop.description : '') + '|';
-}
-
-function generateProps(props) {
-  var title = '|name|type|required|default|description|\n|---|---|---|---|---|\n';
-  if (!props) {
-    return title;
-  }
-  return title + (0, _keys2.default)(props).sort().map(function (propName) {
-    return generateProp(propName, props[propName]);
-  }).join('\n');
-}
-
 function generateMarkdown(reactAPI) {
-  var markdownString = generateTitle(reactAPI.displayName) + '\n' + generateDesciption(reactAPI.description) + '\n' + generateProps(reactAPI.props);
+  var markdownString = generateTitle(reactAPI.displayName) + '\n' + generateDesciption(reactAPI.description);
 
   return markdownString;
 }
