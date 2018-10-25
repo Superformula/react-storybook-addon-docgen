@@ -18,14 +18,16 @@ yarn add storybook-addon-docgen
 Add this line in `addons.js` file within your storybook config directory:
 
 ```js
-require('react-storybook-addon-docgen/register');
+import 'storybook-addon-docgen/register';
 ```
 
 Then add a decorator to your stories.
 
 ```js
+import docs from 'storybook-addon-docgen';
+
 storiesOf('ButtonSimple')
-  .addDecorator(docs())
+  .addDecorator(docs)
   .add(
     'simple usage',
     () => <ButtonSimple label="The Button" onClick={action('onClick')} />,
@@ -39,8 +41,8 @@ storiesOf('ButtonSimple')
 You can add static values on react classes, which tell which component this component derives from.
 It works similiar to derives property on react-docgen, but this way you save yourself from long chains of dependencies.
 
-
 ## React native storybook
+
 If you are using react native storybook and this addon doesn't work for you, it means that your .babelrc file is missing plugin.
 
 ```
