@@ -114,6 +114,11 @@ var DocPanel = function (_React$Component) {
           style: styles.base,
           className: "markdown-body" },
         _react2.default.createElement("div", { dangerouslySetInnerHTML: { __html: html } }),
+        _react2.default.createElement(
+          "h2",
+          null,
+          "Props"
+        ),
         _react2.default.createElement(_PropTable2.default, {
           type: function type() {
             return "abc";

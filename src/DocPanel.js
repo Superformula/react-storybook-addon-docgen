@@ -58,6 +58,7 @@ export default class DocPanel extends React.Component {
         style={styles.base}
         className="markdown-body">
         <div dangerouslySetInnerHTML={{ __html: html }} />
+        <h2>Props</h2>
         <PropTable
           type={() => "abc"}
           propDefinitions={propDefinitions}
