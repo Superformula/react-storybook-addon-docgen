@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@storybook/react';
 import docs from '../src';
+import StoryDocsWrapper from '../src/StoryDocsWrapper'
 
 import Button from './Button';
 import ButtonDocs from './ButtonDocs';
@@ -29,4 +30,13 @@ storiesOf('ButtonSimple')
   .add(
     'simple usage',
     () => <ButtonSimple label="The Button" onClick={action('onClick')} />,
+  )
+  .add(
+    'multiple usage in a div wrapper',
+    () => (
+      <StoryDocsWrapper component={ButtonSimple}>
+        <ButtonSimple label="Button1" onClick={action('onClick')} />
+        <ButtonSimple label="Button2" onClick={action('onClick')} />
+      </StoryDocsWrapper>
+    )
   );

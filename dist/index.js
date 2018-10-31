@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.StoryDocsWrapper = undefined;
 
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
@@ -18,7 +19,13 @@ var _addons2 = _interopRequireDefault(_addons);
 
 var _constants = require('./constants');
 
+var _StoryDocsWrapper = require('./StoryDocsWrapper');
+
+var _StoryDocsWrapper2 = _interopRequireDefault(_StoryDocsWrapper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.StoryDocsWrapper = _StoryDocsWrapper2.default;
 
 exports.default = function (fn) {
   var story = fn();
@@ -26,7 +33,9 @@ exports.default = function (fn) {
   var channel = _addons2.default.getChannel();
 
   var docgen = void 0;
-  if (story.type.derivedComponents) {
+  if (story.type === _StoryDocsWrapper2.default) {
+    docgen = story.props.component.__docgenInfo;
+  } else if (story.type.derivedComponents) {
     var _ref;
 
     var derivedComponents = [].concat(story.type.derivedComponents);

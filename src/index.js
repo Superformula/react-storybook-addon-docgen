@@ -1,6 +1,9 @@
 import React from 'react';
 import addons from "@storybook/addons";
 import {EVENT_ID} from './constants';
+import StoryDocsWrapper from './StoryDocsWrapper';
+
+export { StoryDocsWrapper };
 
 export default (fn) => {
   let story = fn();
@@ -8,7 +11,9 @@ export default (fn) => {
   const channel = addons.getChannel();
 
   let docgen;
-  if (story.type.derivedComponents) {
+  if (story.type === StoryDocsWrapper) {
+    docgen = story.props.component.__docgenInfo;
+  } else if (story.type.derivedComponents) {
     const derivedComponents = [].concat(story.type.derivedComponents);
     docgen = _.cloneDeep(story.type.__docgenInfo);
     docgen.props = _.merge(

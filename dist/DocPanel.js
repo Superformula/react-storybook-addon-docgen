@@ -97,7 +97,7 @@ var DocPanel = function (_React$Component) {
       });
       var html = (0, _marked2.default)(md);
 
-      var propDefinitions = (0, _keys2.default)(docgen.props).map(function (key) {
+      var propDefinitions = docgen.props ? (0, _keys2.default)(docgen.props).map(function (key) {
         var prop = docgen.props[key];
         return {
           property: key,
@@ -106,7 +106,7 @@ var DocPanel = function (_React$Component) {
           description: prop.description,
           defaultValue: prop.defaultValue ? prop.defaultValue.value || "COMPUTED" : undefined
         };
-      });
+      }) : [];
 
       return _react2.default.createElement(
         "div",

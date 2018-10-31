@@ -42,16 +42,20 @@ export default class DocPanel extends React.Component {
     });
     const html = marked(md);
 
-    const propDefinitions = Object.keys(docgen.props).map(key => {
-      const prop = docgen.props[key];
-      return {
-        property: key,
-        propType: prop.type,
-        required: prop.required,
-        description: prop.description,
-        defaultValue: prop.defaultValue ? prop.defaultValue.value || "COMPUTED" : undefined,
-      }
-    })
+    const propDefinitions = docgen.props ? Object.keys(docgen.props).map(
+          key => {
+            const prop = docgen.props[key];
+            return {
+              property: key,
+              propType: prop.type,
+              required: prop.required,
+              description: prop.description,
+              defaultValue: prop.defaultValue
+                ? prop.defaultValue.value || "COMPUTED"
+                : undefined
+            };
+          }
+        ) : [];
 
     return (
       <div
