@@ -24,7 +24,7 @@ ButtonDocs.propTypes = {
    */
   disabled: React.PropTypes.bool,
   icons: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
+    React.PropTypes.exact({
       type: React.PropTypes.string.isRequired,
       color: React.PropTypes.string
     })

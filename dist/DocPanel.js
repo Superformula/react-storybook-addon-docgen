@@ -42,7 +42,7 @@ var _generateMarkdown = require("./components/generateMarkdown");
 
 var _generateMarkdown2 = _interopRequireDefault(_generateMarkdown);
 
-var _PropTable = require("@storybook/addon-info/dist/components/PropTable");
+var _PropTable = require("./components/PropTable");
 
 var _PropTable2 = _interopRequireDefault(_PropTable);
 

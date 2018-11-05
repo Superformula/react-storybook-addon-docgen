@@ -3,7 +3,7 @@ import marked from "marked";
 import "!style-loader!css-loader!github-markdown-css/github-markdown.css";
 
 import generateMarkdown from "./components/generateMarkdown";
-import PropTable from "@storybook/addon-info/dist/components/PropTable";
+import PropTable from "./components/PropTable";
 
 import { EVENT_ID } from "./constants";
 
