@@ -5,23 +5,7 @@ import React from 'react';
 import { Table, Td, Th } from '@storybook/components';
 import PropVal from './PropVal';
 import PrettyPropType from './types/PrettyPropType';
-
-export const multiLineText = input => {
-  if (!input) return input;
-  const text = String(input);
-  const arrayOfText = text.split(/\r?\n|\r/g);
-  const isSingleLine = arrayOfText.length < 2;
-  return isSingleLine
-    ? text
-    : arrayOfText.map((
-        lineOfText,
-        i // note: lineOfText is the closest we will get to a unique key
-      ) => (
-        <span key={lineOfText}>
-          {i > 0 && <br />} {lineOfText}
-        </span>
-      ));
-};
+import marked from "marked";
 
 export default function PropTable(props) {
   const {
@@ -74,7 +58,12 @@ export default function PropTable(props) {
                 <PropVal val={row.defaultValue} {...propValProps} />
               )}
             </Td>
-            <Td bordered>{multiLineText(row.description)}</Td>
+            <Td bordered>
+              <div 
+                style={{ marginBottom: '-16px', overflow: 'hidden' }} 
+                dangerouslySetInnerHTML={{ __html: marked(row.description) }} 
+                />
+            </Td>
           </tr>
         ))}
       </tbody>

@@ -30,7 +30,7 @@ ButtonDocs.propTypes = {
     })
   ),
   /**
-   * Click event handler function (receives an event)
+   * Click event handler function (receives an `event`)
    */
   onClick: React.PropTypes.func,
 };

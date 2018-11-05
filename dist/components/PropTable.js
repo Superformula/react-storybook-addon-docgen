@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.multiLineText = undefined;
 
 var _extends2 = require('babel-runtime/helpers/extends');
 
@@ -29,24 +28,13 @@ var _PrettyPropType = require('./types/PrettyPropType');
 
 var _PrettyPropType2 = _interopRequireDefault(_PrettyPropType);
 
+var _marked = require('marked');
+
+var _marked2 = _interopRequireDefault(_marked);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var multiLineText = exports.multiLineText = function multiLineText(input) {
-  if (!input) return input;
-  var text = String(input);
-  var arrayOfText = text.split(/\r?\n|\r/g);
-  var isSingleLine = arrayOfText.length < 2;
-  return isSingleLine ? text : arrayOfText.map(function (lineOfText, i // note: lineOfText is the closest we will get to a unique key
-  ) {
-    return _react2.default.createElement(
-      'span',
-      { key: lineOfText },
-      i > 0 && _react2.default.createElement('br', null),
-      ' ',
-      lineOfText
-    );
-  });
-}; // Source code originated from https://github.com/storybooks/storybook/tree/a2a2a914275296f5776b92cd36d45811a5b377d3/addons/info/src/components
+// Source code originated from https://github.com/storybooks/storybook/tree/a2a2a914275296f5776b92cd36d45811a5b377d3/addons/info/src/components
 function PropTable(props) {
   var type = props.type,
       maxPropObjectKeys = props.maxPropObjectKeys,
@@ -139,7 +127,10 @@ function PropTable(props) {
           _react2.default.createElement(
             _components.Td,
             { bordered: true },
-            multiLineText(row.description)
+            _react2.default.createElement('div', {
+              style: { marginBottom: '-16px', overflow: 'hidden' },
+              dangerouslySetInnerHTML: { __html: (0, _marked2.default)(row.description) }
+            })
           )
         );
       })
