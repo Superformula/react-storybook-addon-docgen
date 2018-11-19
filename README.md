@@ -26,7 +26,7 @@ Then add a decorator to your stories.
 ```js
 import docs from 'storybook-addon-docgen';
 
-storiesOf('ButtonSimple')
+storiesOf('ButtonSimple', module)
   .addDecorator(docs)
   .add(
     'simple usage',

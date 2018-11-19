@@ -1,58 +1,74 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _extends2 = require('babel-runtime/helpers/extends');
-
-var _extends3 = _interopRequireDefault(_extends2);
-
 exports.default = PropTable;
+exports.multiLineText = void 0;
 
-var _propTypes = require('prop-types');
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _react = require('react');
+var _react = _interopRequireDefault(require("react"));
 
-var _react2 = _interopRequireDefault(_react);
+require("core-js/fn/array/includes");
 
-var _components = require('@storybook/components');
+var _marked = _interopRequireDefault(require("marked"));
 
-var _PropVal = require('./PropVal');
+var _components = require("@storybook/components");
 
-var _PropVal2 = _interopRequireDefault(_PropVal);
+var _PropVal = _interopRequireDefault(require("./PropVal"));
 
-var _PrettyPropType = require('./types/PrettyPropType');
+var _PrettyPropType = _interopRequireDefault(require("./types/PrettyPropType"));
 
-var _PrettyPropType2 = _interopRequireDefault(_PrettyPropType);
+var multiLineText = function multiLineText(input) {
+  if (!input) {
+    return input;
+  }
 
-var _marked = require('marked');
+  var text = String(input);
+  var arrayOfText = text.split(/\r?\n|\r/g);
+  var isSingleLine = arrayOfText.length < 2;
+  return isSingleLine ? text : arrayOfText.map(function (lineOfText, i) {
+    return (// eslint-disable-next-line react/no-array-index-key
+      _react.default.createElement("span", {
+        key: "".concat(lineOfText, ".").concat(i)
+      }, i > 0 && _react.default.createElement("br", null), " ", lineOfText)
+    );
+  });
+};
 
-var _marked2 = _interopRequireDefault(_marked);
+exports.multiLineText = multiLineText;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var determineIncludedPropTypes = function determineIncludedPropTypes(propDefinitions, excludedPropTypes) {
+  if (excludedPropTypes.length === 0) {
+    return propDefinitions;
+  }
 
-// Source code originated from https://github.com/storybooks/storybook/tree/a2a2a914275296f5776b92cd36d45811a5b377d3/addons/info/src/components
+  return propDefinitions.filter(function (propDefinition) {
+    return !excludedPropTypes.includes(propDefinition.property);
+  });
+};
+
 function PropTable(props) {
   var type = props.type,
       maxPropObjectKeys = props.maxPropObjectKeys,
       maxPropArrayLength = props.maxPropArrayLength,
       maxPropStringLength = props.maxPropStringLength,
-      propDefinitions = props.propDefinitions;
-
+      propDefinitions = props.propDefinitions,
+      excludedPropTypes = props.excludedPropTypes;
 
   if (!type) {
     return null;
   }
 
-  if (!propDefinitions.length) {
-    return _react2.default.createElement(
-      'small',
-      null,
-      'No propTypes defined!'
-    );
+  var includedPropDefinitions = determineIncludedPropTypes(propDefinitions, excludedPropTypes);
+
+  if (!includedPropDefinitions.length) {
+    return _react.default.createElement("small", null, "No propTypes defined!");
   }
 
   var propValProps = {
@@ -60,99 +76,64 @@ function PropTable(props) {
     maxPropArrayLength: maxPropArrayLength,
     maxPropStringLength: maxPropStringLength
   };
-
-  return _react2.default.createElement(
-    _components.Table,
-    null,
-    _react2.default.createElement(
-      'thead',
-      null,
-      _react2.default.createElement(
-        'tr',
-        null,
-        _react2.default.createElement(
-          _components.Th,
-          { bordered: true },
-          'property'
-        ),
-        _react2.default.createElement(
-          _components.Th,
-          { bordered: true },
-          'propType'
-        ),
-        _react2.default.createElement(
-          _components.Th,
-          { bordered: true },
-          'required'
-        ),
-        _react2.default.createElement(
-          _components.Th,
-          { bordered: true },
-          'default'
-        ),
-        _react2.default.createElement(
-          _components.Th,
-          { bordered: true },
-          'description'
-        )
-      )
-    ),
-    _react2.default.createElement(
-      'tbody',
-      null,
-      propDefinitions.map(function (row) {
-        return _react2.default.createElement(
-          'tr',
-          { key: row.property },
-          _react2.default.createElement(
-            _components.Td,
-            { bordered: true, code: true },
-            row.property
-          ),
-          _react2.default.createElement(
-            _components.Td,
-            { bordered: true, code: true },
-            _react2.default.createElement(_PrettyPropType2.default, { propType: row.propType })
-          ),
-          _react2.default.createElement(
-            _components.Td,
-            { bordered: true },
-            row.required ? 'yes' : '-'
-          ),
-          _react2.default.createElement(
-            _components.Td,
-            { bordered: true },
-            row.defaultValue === undefined ? '-' : _react2.default.createElement(_PropVal2.default, (0, _extends3.default)({ val: row.defaultValue }, propValProps))
-          ),
-          _react2.default.createElement(
-            _components.Td,
-            { bordered: true },
-            _react2.default.createElement('div', {
-              style: { marginBottom: '-16px', overflow: 'hidden' },
-              dangerouslySetInnerHTML: { __html: (0, _marked2.default)(row.description) }
-            })
-          )
-        );
-      })
-    )
-  );
+  return _react.default.createElement(_components.Table, null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement(_components.Th, {
+    bordered: true
+  }, "property"), _react.default.createElement(_components.Th, {
+    bordered: true
+  }, "propType"), _react.default.createElement(_components.Th, {
+    bordered: true
+  }, "required"), _react.default.createElement(_components.Th, {
+    bordered: true
+  }, "default"), _react.default.createElement(_components.Th, {
+    bordered: true
+  }, "description"))), _react.default.createElement("tbody", null, includedPropDefinitions.map(function (row) {
+    return _react.default.createElement("tr", {
+      key: row.property
+    }, _react.default.createElement(_components.Td, {
+      bordered: true,
+      code: true
+    }, row.property), _react.default.createElement(_components.Td, {
+      bordered: true,
+      code: true
+    }, _react.default.createElement(_PrettyPropType.default, {
+      propType: row.propType
+    })), _react.default.createElement(_components.Td, {
+      bordered: true
+    }, row.required ? 'yes' : '-'), _react.default.createElement(_components.Td, {
+      bordered: true
+    }, row.defaultValue === undefined ? '-' : _react.default.createElement(_PropVal.default, (0, _extends2.default)({
+      val: row.defaultValue
+    }, propValProps))), _react.default.createElement(_components.Td, {
+      bordered: true
+    }, _react.default.createElement("div", {
+      style: {
+        marginBottom: '-16px',
+        overflow: 'hidden'
+      },
+      dangerouslySetInnerHTML: {
+        __html: (0, _marked.default)(row.description)
+      }
+    })));
+  })));
 }
 
 PropTable.displayName = 'PropTable';
 PropTable.defaultProps = {
   type: null,
-  propDefinitions: []
+  propDefinitions: [],
+  excludedPropTypes: []
 };
 PropTable.propTypes = {
-  type: _propTypes2.default.func,
-  maxPropObjectKeys: _propTypes2.default.number.isRequired,
-  maxPropArrayLength: _propTypes2.default.number.isRequired,
-  maxPropStringLength: _propTypes2.default.number.isRequired,
-  propDefinitions: _propTypes2.default.arrayOf(_propTypes2.default.shape({
-    property: _propTypes2.default.string.isRequired,
-    propType: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.string]),
-    required: _propTypes2.default.bool,
-    description: _propTypes2.default.string,
-    defaultValue: _propTypes2.default.any
+  type: _propTypes.default.func,
+  maxPropObjectKeys: _propTypes.default.number.isRequired,
+  maxPropArrayLength: _propTypes.default.number.isRequired,
+  maxPropStringLength: _propTypes.default.number.isRequired,
+  excludedPropTypes: _propTypes.default.arrayOf(_propTypes.default.string),
+  propDefinitions: _propTypes.default.arrayOf(_propTypes.default.shape({
+    property: _propTypes.default.string.isRequired,
+    propType: _propTypes.default.oneOfType([_propTypes.default.object, _propTypes.default.string]),
+    required: _propTypes.default.bool,
+    description: _propTypes.default.string,
+    defaultValue: _propTypes.default.any
   }))
 };

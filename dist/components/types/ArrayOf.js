@@ -1,46 +1,27 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _react = require('react');
+var _react = _interopRequireDefault(require("react"));
 
-var _react2 = _interopRequireDefault(_react);
+var _PrettyPropType = _interopRequireDefault(require("./PrettyPropType"));
 
-var _PrettyPropType = require('./PrettyPropType');
-
-var _PrettyPropType2 = _interopRequireDefault(_PrettyPropType);
-
-var _proptypes = require('./proptypes');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _proptypes = require("./proptypes");
 
 var ArrayOf = function ArrayOf(_ref) {
   var propType = _ref.propType;
-  return _react2.default.createElement(
-    'span',
-    null,
-    _react2.default.createElement(
-      'span',
-      null,
-      '['
-    ),
-    _react2.default.createElement(
-      'span',
-      null,
-      _react2.default.createElement(_PrettyPropType2.default, { propType: (0, _proptypes.getPropTypes)(propType) })
-    ),
-    _react2.default.createElement(
-      'span',
-      null,
-      ']'
-    )
-  );
+  return _react.default.createElement("span", null, _react.default.createElement("span", null, "["), _react.default.createElement("span", null, _react.default.createElement(_PrettyPropType.default, {
+    propType: (0, _proptypes.getPropTypes)(propType)
+  })), _react.default.createElement("span", null, "]"));
 };
 
 ArrayOf.propTypes = {
   propType: _proptypes.TypeInfo.isRequired
 };
-
-exports.default = ArrayOf;
+var _default = ArrayOf;
+exports.default = _default;

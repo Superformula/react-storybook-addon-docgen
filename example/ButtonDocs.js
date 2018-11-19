@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * A well documented button component for react
@@ -14,25 +15,25 @@ ButtonDocs.propTypes = {
   /**
    * Label used on the button
    */
-  label: React.PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   /**
    * Style of the button as an inline style object
    */
-  style: React.PropTypes.object,
+  style: PropTypes.object,
   /**
    * Sets disabled flag on the button component
    */
-  disabled: React.PropTypes.bool,
-  icons: React.PropTypes.arrayOf(
-    React.PropTypes.exact({
-      type: React.PropTypes.string.isRequired,
-      color: React.PropTypes.string
+  disabled: PropTypes.bool,
+  icons: PropTypes.arrayOf(
+    PropTypes.exact({
+      type: PropTypes.string.isRequired,
+      color: PropTypes.string
     })
   ),
   /**
    * Click event handler function (receives an `event`)
    */
-  onClick: React.PropTypes.func,
+  onClick: PropTypes.func,
 };
 ButtonDocs.defaultProps = {
   disabled: false,

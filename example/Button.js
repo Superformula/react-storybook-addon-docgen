@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // A not well documented button component
 
@@ -10,10 +11,10 @@ const Button = ({ disabled, label, style, onClick }) => (
 
 Button.displayName = 'Button';
 Button.propTypes = {
-  label: React.PropTypes.string.isRequired,
-  style: React.PropTypes.object,
-  disabled: React.PropTypes.bool,
-  onClick: React.PropTypes.func,
+  label: PropTypes.string.isRequired,
+  style: PropTypes.object,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default Button;

@@ -1,27 +1,26 @@
-'use strict';
+"use strict";
 
-var _react = require('react');
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-var _react2 = _interopRequireDefault(_react);
+var _react = _interopRequireDefault(require("react"));
 
-var _addons = require('@storybook/addons');
+var _addons = _interopRequireDefault(require("@storybook/addons"));
 
-var _addons2 = _interopRequireDefault(_addons);
+var _DocPanel = _interopRequireDefault(require("./DocPanel"));
 
-var _DocPanel = require('./DocPanel');
+var _constants = require("./constants");
 
-var _DocPanel2 = _interopRequireDefault(_DocPanel);
+_addons.default.register(_constants.ADDON_ID, function (api) {
+  var channel = _addons.default.getChannel();
 
-var _constants = require('./constants');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_addons2.default.register(_constants.ADDON_ID, function (api) {
-  var channel = _addons2.default.getChannel();
-  _addons2.default.addPanel(_constants.PANEL_ID, {
+  _addons.default.addPanel(_constants.PANEL_ID, {
     title: 'Docs',
-    render: function render() {
-      return _react2.default.createElement(_DocPanel2.default, { channel: channel, api: api });
+    render: function render(_ref) {
+      var active = _ref.active;
+      return active ? _react.default.createElement(_DocPanel.default, {
+        channel: channel,
+        api: api
+      }) : null;
     }
   });
 });

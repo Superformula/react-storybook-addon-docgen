@@ -1,16 +1,15 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _react = require('react');
+var _react = _interopRequireDefault(require("react"));
 
-var _react2 = _interopRequireDefault(_react);
-
-var _proptypes = require('./proptypes');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _proptypes = require("./proptypes");
 
 var joinValues = function joinValues(propTypes) {
   return propTypes.map(function (_ref) {
@@ -21,17 +20,12 @@ var joinValues = function joinValues(propTypes) {
 
 var OneOf = function OneOf(_ref2) {
   var propType = _ref2.propType;
-
   var propTypes = (0, _proptypes.getPropTypes)(propType);
-  return _react2.default.createElement(
-    'span',
-    null,
-    'oneOf ' + (Array.isArray(propTypes) ? joinValues(propTypes) : propTypes)
-  );
+  return _react.default.createElement("span", null, "oneOf ".concat(Array.isArray(propTypes) ? joinValues(propTypes) : propTypes));
 };
 
 OneOf.propTypes = {
   propType: _proptypes.TypeInfo.isRequired
 };
-
-exports.default = OneOf;
+var _default = OneOf;
+exports.default = _default;

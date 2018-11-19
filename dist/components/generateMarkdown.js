@@ -22,7 +22,6 @@ function generateDesciption(description) {
 
 function generateMarkdown(reactAPI) {
   var markdownString = generateTitle(reactAPI.displayName) + '\n' + generateDesciption(reactAPI.description);
-
   return markdownString;
 }
 

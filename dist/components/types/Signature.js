@@ -1,28 +1,23 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _react = require('react');
+var _react = _interopRequireDefault(require("react"));
 
-var _react2 = _interopRequireDefault(_react);
-
-var _proptypes = require('./proptypes');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _proptypes = require("./proptypes");
 
 var Signature = function Signature(_ref) {
   var propType = _ref.propType;
-  return _react2.default.createElement(
-    'span',
-    null,
-    propType.raw
-  );
+  return _react.default.createElement("span", null, propType.raw);
 };
 
 Signature.propTypes = {
   propType: _proptypes.TypeInfo.isRequired
 };
-
-exports.default = Signature;
+var _default = Signature;
+exports.default = _default;

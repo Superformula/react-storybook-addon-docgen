@@ -1,7 +1,5 @@
-// Source code originated from https://github.com/storybooks/storybook/tree/a2a2a914275296f5776b92cd36d45811a5b377d3/addons/info/src/components
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withTheme } from 'glamorous';
 import createFragment from 'react-addons-create-fragment';
 
 const getValueStyles = (codeColors = {}) => ({
@@ -35,7 +33,7 @@ const getValueStyles = (codeColors = {}) => ({
   },
 
   empty: {
-    color: '#777',
+    color: '#444',
   },
 });
 
@@ -283,4 +281,4 @@ PropVal.propTypes = {
   }),
 };
 
-export default withTheme(PropVal);
+export default PropVal;

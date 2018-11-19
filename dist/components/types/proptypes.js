@@ -1,21 +1,22 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getPropTypes = exports.TypeInfo = undefined;
+exports.getPropTypes = exports.TypeInfo = void 0;
 
-var _propTypes = require('prop-types');
+var _propTypes = _interopRequireWildcard(require("prop-types"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var TypeInfo = (0, _propTypes.oneOfType)([_propTypes.default.shape({
+  name: _propTypes.default.string,
+  value: _propTypes.default.any
+}), _propTypes.default.string]);
+exports.TypeInfo = TypeInfo;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var TypeInfo = exports.TypeInfo = (0, _propTypes.oneOfType)([_propTypes2.default.shape({
-  name: _propTypes2.default.string,
-  value: _propTypes2.default.any
-}), _propTypes2.default.string]);
-
-var getPropTypes = exports.getPropTypes = function getPropTypes(propType) {
+var getPropTypes = function getPropTypes(propType) {
   return propType.value || propType.elements;
 };
+
+exports.getPropTypes = getPropTypes;

@@ -1,5 +1,6 @@
 import React from 'react';
-import { storiesOf, action } from '@storybook/react';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import docs from '../src';
 import StoryDocsWrapper from '../src/StoryDocsWrapper'
 
@@ -7,7 +8,7 @@ import Button from './Button';
 import ButtonDocs from './ButtonDocs';
 import ButtonSimple from './ButtonSimple';
 
-storiesOf('ButtonDocs')
+storiesOf('ButtonDocs', module)
   .addDecorator(docs)
   .add(
     'simple usage',
@@ -18,14 +19,14 @@ storiesOf('ButtonDocs')
     () => <ButtonDocs label="Another Button" onClick={action('another onClick')} />,
   );
 
-storiesOf('Button')
+storiesOf('Button', module)
   .addDecorator(docs)
   .add(
     'simple usage',
     () => <Button label="The Button" onClick={action('onClick')} />,
   );
 
-storiesOf('ButtonSimple')
+storiesOf('ButtonSimple', module)
   .addDecorator(docs)
   .add(
     'simple usage',
@@ -33,6 +34,16 @@ storiesOf('ButtonSimple')
   )
   .add(
     'multiple usage in a div wrapper',
+    () => (
+      <React.Fragment>
+        <ButtonSimple label="Button1" onClick={action('onClick')} />
+        <ButtonSimple label="Button2" onClick={action('onClick')} />
+      </React.Fragment>
+    ),
+    { docgen: { component: ButtonSimple }}
+  )
+  .add(
+    'multiple usage in a div wrapper (deprecated)',
     () => (
       <StoryDocsWrapper component={ButtonSimple}>
         <ButtonSimple label="Button1" onClick={action('onClick')} />

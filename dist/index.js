@@ -1,52 +1,61 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.StoryDocsWrapper = undefined;
-
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _addons = require('@storybook/addons');
-
-var _addons2 = _interopRequireDefault(_addons);
-
-var _constants = require('./constants');
-
-var _StoryDocsWrapper = require('./StoryDocsWrapper');
-
-var _StoryDocsWrapper2 = _interopRequireDefault(_StoryDocsWrapper);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.StoryDocsWrapper = _StoryDocsWrapper2.default;
-
-exports.default = function (fn) {
-  var story = fn();
-
-  var channel = _addons2.default.getChannel();
-
-  var docgen = void 0;
-  if (story.type === _StoryDocsWrapper2.default) {
-    docgen = story.props.component.__docgenInfo;
-  } else if (story.type.derivedComponents) {
-    var _ref;
-
-    var derivedComponents = [].concat(story.type.derivedComponents);
-    docgen = _.cloneDeep(story.type.__docgenInfo);
-    docgen.props = (_ref = _).merge.apply(_ref, [docgen.props].concat((0, _toConsumableArray3.default)(derivedComponents.map(function (x) {
-      return x.__docgenInfo && x.__docgenInfo.props ? x.__docgenInfo.props : {};
-    }))));
-  } else {
-    docgen = story.type.__docgenInfo;
+Object.defineProperty(exports, "StoryDocsWrapper", {
+  enumerable: true,
+  get: function get() {
+    return _StoryDocsWrapper.default;
   }
+});
+exports.default = void 0;
 
-  channel.emit(_constants.EVENT_ID, { docgen: docgen });
-  return fn();
-};
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _addons = _interopRequireWildcard(require("@storybook/addons"));
+
+var _constants = require("./constants");
+
+var _StoryDocsWrapper = _interopRequireDefault(require("./StoryDocsWrapper"));
+
+var _default = (0, _addons.makeDecorator)({
+  name: 'withDocgen',
+  parameterName: 'docgen',
+  wrapper: function wrapper(storyFn, context, _ref) {
+    var parameters = _ref.parameters;
+    var story = storyFn(context);
+    var docgen;
+
+    if (parameters && parameters.component) {
+      docgen = parameters.component.__docgenInfo;
+    } else if (story.type === _StoryDocsWrapper.default) {
+      docgen = story.props.component.__docgenInfo;
+    } else if (story.type.derivedComponents) {
+      var _ref2;
+
+      var derivedComponents = [].concat(story.type.derivedComponents);
+      docgen = _.cloneDeep(story.type.__docgenInfo);
+      docgen.props = (_ref2 = _).merge.apply(_ref2, [docgen.props].concat((0, _toConsumableArray2.default)(derivedComponents.map(function (x) {
+        return x.__docgenInfo && x.__docgenInfo.props ? x.__docgenInfo.props : {};
+      }))));
+    } else {
+      docgen = story.type.__docgenInfo;
+    }
+
+    var channel = _addons.default.getChannel();
+
+    channel.emit(_constants.EVENT_ID, {
+      docgen: docgen
+    });
+    return story;
+  }
+});
+
+exports.default = _default;
