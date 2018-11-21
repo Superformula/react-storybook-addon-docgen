@@ -17,12 +17,11 @@ var OneOfType = function OneOfType(_ref) {
   var propType = _ref.propType;
   var propTypes = (0, _proptypes.getPropTypes)(propType);
   return _react.default.createElement("span", null, propTypes.map(function (value, i) {
-    var key = "".concat(value.name).concat(value.value ? "-".concat(value.value) : '');
     return [_react.default.createElement(_PrettyPropType.default, {
-      key: key,
+      key: i,
       propType: value
     }), i < propTypes.length - 1 ? _react.default.createElement("span", {
-      key: "".concat(key, "-separator")
+      key: "".concat(i, "-separator")
     }, " | ") : null];
   }).reduce(function (acc, tuple) {
     return acc.concat(tuple);
