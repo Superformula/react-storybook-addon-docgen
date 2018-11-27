@@ -17,10 +17,11 @@ _addons.default.register(_constants.ADDON_ID, function (api) {
     title: 'Docs',
     render: function render(_ref) {
       var active = _ref.active;
-      return active ? _react.default.createElement(_DocPanel.default, {
+      return _react.default.createElement(_DocPanel.default, {
+        active: active,
         channel: channel,
         api: api
-      }) : null;
+      });
     }
   });
 });

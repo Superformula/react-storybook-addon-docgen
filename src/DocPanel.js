@@ -32,8 +32,9 @@ export default class DocPanel extends React.Component {
   }
 
   render() {
+    const { active } = this.props;
     const { docgen } = this.state;
-    if (!docgen) {
+    if (!active || !docgen) {
       return null;
     }
     const md = generateMarkdown({

@@ -10,7 +10,7 @@ addons.register(ADDON_ID, (api) => {
   addons.addPanel(PANEL_ID, {
     title: 'Docs',
     render: ({ active }) => {
-      return active ? <DocPanel channel={channel} api={api} /> : null;
+      return <DocPanel active={active} channel={channel} api={api} />;
     },
   });
 });

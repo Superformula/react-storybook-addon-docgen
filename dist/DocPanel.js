@@ -75,9 +75,10 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var active = this.props.active;
       var docgen = this.state.docgen;
 
-      if (!docgen) {
+      if (!active || !docgen) {
         return null;
       }
 
