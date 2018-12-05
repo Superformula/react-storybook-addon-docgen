@@ -69,7 +69,7 @@ export default class DocPanel extends React.Component {
           propDefinitions={propDefinitions}
           maxPropObjectKeys={3}
           maxPropArrayLength={3}
-          maxPropStringLength={50}
+          maxPropStringLength={100000}
         />
       </div>
     );

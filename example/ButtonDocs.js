@@ -25,10 +25,10 @@ ButtonDocs.propTypes = {
    */
   disabled: PropTypes.bool,
   icons: PropTypes.arrayOf(
-    PropTypes.exact({
+    PropTypes.shape({
       type: PropTypes.string.isRequired,
       color: PropTypes.string
-    })
+    }).isRequired
   ),
   /**
    * Click event handler function (receives an `event`)
@@ -37,6 +37,11 @@ ButtonDocs.propTypes = {
 };
 ButtonDocs.defaultProps = {
   disabled: false,
+  icons: [
+    { type: 'type1', color: 'color1' },
+    { type: 'type2', color: 'color2' },
+    { type: 'type3', color: 'color3' },
+  ],
   label: "Submit"
 };
 

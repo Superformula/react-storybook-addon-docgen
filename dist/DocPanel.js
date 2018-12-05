@@ -111,7 +111,7 @@ function (_React$Component) {
         propDefinitions: propDefinitions,
         maxPropObjectKeys: 3,
         maxPropArrayLength: 3,
-        maxPropStringLength: 50
+        maxPropStringLength: 100000
       }));
     }
   }]);
