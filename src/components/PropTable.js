@@ -4,7 +4,6 @@ import 'core-js/fn/array/includes';
 import marked from 'marked';
 
 import { Table, Td, Th } from '@storybook/components';
-import PropVal from './PropVal';
 import PrettyPropType from './types/PrettyPropType';
 
 export const multiLineText = input => {
@@ -54,12 +53,6 @@ export default function PropTable(props) {
     return <small>No propTypes defined!</small>;
   }
 
-  const propValProps = {
-    maxPropObjectKeys,
-    maxPropArrayLength,
-    maxPropStringLength,
-  };
-
   return (
     <Table>
       <thead>
@@ -77,15 +70,15 @@ export default function PropTable(props) {
             <Td bordered code>
               {row.property}
             </Td>
-            <Td bordered code>
+            <Td bordered code style={{ fontSize: '14px', whiteSpace: 'pre-wrap' }}>
               <PrettyPropType propType={row.propType} />
             </Td>
             <Td bordered>{row.required ? 'yes' : '-'}</Td>
-            <Td bordered>
+            <Td bordered code style={{  fontSize: '14px', whiteSpace: 'pre-wrap' }}>
               {row.defaultValue === undefined ? (
                 '-'
               ) : (
-                <PropVal val={row.defaultValue} {...propValProps} />
+                <span style={{ color: 'rgb(34, 34, 170)' }}>{row.defaultValue}</span>
               )}
             </Td>
             <Td bordered>

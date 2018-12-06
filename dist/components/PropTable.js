@@ -8,8 +8,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = PropTable;
 exports.multiLineText = void 0;
 
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _react = _interopRequireDefault(require("react"));
@@ -19,8 +17,6 @@ require("core-js/fn/array/includes");
 var _marked = _interopRequireDefault(require("marked"));
 
 var _components = require("@storybook/components");
-
-var _PropVal = _interopRequireDefault(require("./PropVal"));
 
 var _PrettyPropType = _interopRequireDefault(require("./types/PrettyPropType"));
 
@@ -71,11 +67,6 @@ function PropTable(props) {
     return _react.default.createElement("small", null, "No propTypes defined!");
   }
 
-  var propValProps = {
-    maxPropObjectKeys: maxPropObjectKeys,
-    maxPropArrayLength: maxPropArrayLength,
-    maxPropStringLength: maxPropStringLength
-  };
   return _react.default.createElement(_components.Table, null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement(_components.Th, {
     bordered: true
   }, "property"), _react.default.createElement(_components.Th, {
@@ -94,16 +85,27 @@ function PropTable(props) {
       code: true
     }, row.property), _react.default.createElement(_components.Td, {
       bordered: true,
-      code: true
+      code: true,
+      style: {
+        fontSize: '14px',
+        whiteSpace: 'pre-wrap'
+      }
     }, _react.default.createElement(_PrettyPropType.default, {
       propType: row.propType
     })), _react.default.createElement(_components.Td, {
       bordered: true
     }, row.required ? 'yes' : '-'), _react.default.createElement(_components.Td, {
-      bordered: true
-    }, row.defaultValue === undefined ? '-' : _react.default.createElement(_PropVal.default, (0, _extends2.default)({
-      val: row.defaultValue
-    }, propValProps))), _react.default.createElement(_components.Td, {
+      bordered: true,
+      code: true,
+      style: {
+        fontSize: '14px',
+        whiteSpace: 'pre-wrap'
+      }
+    }, row.defaultValue === undefined ? '-' : _react.default.createElement("span", {
+      style: {
+        color: 'rgb(34, 34, 170)'
+      }
+    }, row.defaultValue)), _react.default.createElement(_components.Td, {
       bordered: true
     }, _react.default.createElement("div", {
       style: {
