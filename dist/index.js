@@ -17,13 +17,33 @@ exports.default = void 0;
 
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 
-var _react = _interopRequireDefault(require("react"));
-
 var _addons = _interopRequireWildcard(require("@storybook/addons"));
 
 var _constants = require("./constants");
 
 var _StoryDocsWrapper = _interopRequireDefault(require("./StoryDocsWrapper"));
+
+var _lodash = _interopRequireDefault(require("lodash.merge"));
+
+function getComponentDocgenInfo(component) {
+  if (component.type === _StoryDocsWrapper.default) {
+    return getComponentDocgenInfo({
+      type: component.props.component
+    });
+  } else if (component.type.derivedComponents && component.type.derivedComponents.length > 0) {
+    var derivedComponents = component.type.derivedComponents;
+    return _lodash.default.apply(void 0, [{}, derivedComponents[derivedComponents.length - 1].__docgenInfo].concat((0, _toConsumableArray2.default)(derivedComponents.slice(0, -1).map(function (c) {
+      var docgenInfo = getComponentDocgenInfo({
+        type: c
+      });
+      return docgenInfo ? {
+        props: docgenInfo.props
+      } : {};
+    }))));
+  } else {
+    return component.type.__docgenInfo;
+  }
+}
 
 var _default = (0, _addons.makeDecorator)({
   name: 'withDocgen',
@@ -34,19 +54,11 @@ var _default = (0, _addons.makeDecorator)({
     var docgen;
 
     if (parameters && parameters.component) {
-      docgen = parameters.component.__docgenInfo;
-    } else if (story.type === _StoryDocsWrapper.default) {
-      docgen = story.props.component.__docgenInfo;
-    } else if (story.type.derivedComponents) {
-      var _ref2;
-
-      var derivedComponents = [].concat(story.type.derivedComponents);
-      docgen = _.cloneDeep(story.type.__docgenInfo);
-      docgen.props = (_ref2 = _).merge.apply(_ref2, [docgen.props].concat((0, _toConsumableArray2.default)(derivedComponents.map(function (x) {
-        return x.__docgenInfo && x.__docgenInfo.props ? x.__docgenInfo.props : {};
-      }))));
+      docgen = getComponentDocgenInfo({
+        type: parameters.component
+      });
     } else {
-      docgen = story.type.__docgenInfo;
+      docgen = docgen = getComponentDocgenInfo(story);
     }
 
     var channel = _addons.default.getChannel();

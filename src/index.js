@@ -1,9 +1,30 @@
-import React from 'react';
-import addonAPI, { makeDecorator } from "@storybook/addons";
-import {EVENT_ID} from './constants';
+import addonAPI, { makeDecorator } from '@storybook/addons';
+import { EVENT_ID } from './constants';
 import StoryDocsWrapper from './StoryDocsWrapper';
+import merge from 'lodash.merge';
 
 export { StoryDocsWrapper };
+
+function getComponentDocgenInfo(component) {
+  if (component.type === StoryDocsWrapper) {
+    return getComponentDocgenInfo({ type: component.props.component });
+  } else if (
+    component.type.derivedComponents &&
+    component.type.derivedComponents.length > 0
+  ) {
+    const derivedComponents = component.type.derivedComponents;
+    return merge(
+      {},
+      derivedComponents[derivedComponents.length - 1].__docgenInfo,
+      ...derivedComponents.slice(0, -1).map(c => {
+        const docgenInfo = getComponentDocgenInfo({ type: c });
+        return docgenInfo ? { props: docgenInfo.props } : {};
+      })
+    );
+  } else {
+    return component.type.__docgenInfo;
+  }
+}
 
 export default makeDecorator({
   name: 'withDocgen',
@@ -13,23 +34,14 @@ export default makeDecorator({
 
     let docgen;
     if (parameters && parameters.component) {
-      docgen = parameters.component.__docgenInfo;
-    } else if (story.type === StoryDocsWrapper) {
-      docgen = story.props.component.__docgenInfo;
-    } else if (story.type.derivedComponents) {
-      const derivedComponents = [].concat(story.type.derivedComponents);
-      docgen = _.cloneDeep(story.type.__docgenInfo);
-      docgen.props = _.merge(
-        docgen.props,
-        ...derivedComponents.map(x => x.__docgenInfo && x.__docgenInfo.props ? x.__docgenInfo.props : {})
-      );
+      docgen = getComponentDocgenInfo({ type: parameters.component });
     } else {
-      docgen = story.type.__docgenInfo;
+      docgen = docgen = getComponentDocgenInfo(story);
     }
 
     const channel = addonAPI.getChannel();
-    channel.emit(EVENT_ID, {docgen});
+    channel.emit(EVENT_ID, { docgen });
 
     return story;
   }
-})
+});

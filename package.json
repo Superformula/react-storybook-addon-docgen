@@ -35,8 +35,9 @@
     "@storybook/addons": "^4.0.0"
   },
   "dependencies": {
-    "marked": "^0.3.6",
-    "github-markdown-css": "^2.4.1"
+    "github-markdown-css": "^2.4.1",
+    "lodash.merge": "^4.6.1",
+    "marked": "^0.3.6"
   },
   "main": "dist/index.js"
 }

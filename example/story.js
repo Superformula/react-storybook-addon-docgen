@@ -7,6 +7,7 @@ import StoryDocsWrapper from '../src/StoryDocsWrapper'
 import Button from './Button';
 import ButtonDocs from './ButtonDocs';
 import ButtonSimple from './ButtonSimple';
+import WrappedButtonDocs from './WrappedButtonDocs';
 
 storiesOf('ButtonDocs', module)
   .addDecorator(docs)
@@ -17,6 +18,11 @@ storiesOf('ButtonDocs', module)
   .add(
     'another usage',
     () => <ButtonDocs label="Another Button" onClick={action('another onClick')} />,
+  )
+
+  .add(
+    'HOC usage',
+    () => <WrappedButtonDocs label="The Button" onClick={action('onClick')} />,
   );
 
 storiesOf('Button', module)
@@ -28,10 +34,12 @@ storiesOf('Button', module)
 
 storiesOf('ButtonSimple', module)
   .addDecorator(docs)
+
   .add(
     'simple usage',
     () => <ButtonSimple label="The Button" onClick={action('onClick')} />,
   )
+
   .add(
     'multiple usage in a div wrapper',
     () => (
@@ -42,6 +50,7 @@ storiesOf('ButtonSimple', module)
     ),
     { docgen: { component: ButtonSimple }}
   )
+
   .add(
     'multiple usage in a div wrapper (deprecated)',
     () => (
