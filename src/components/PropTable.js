@@ -2,9 +2,37 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import 'core-js/fn/array/includes';
 import marked from 'marked';
+import styled from '@emotion/styled';
 
-import { Table, Td, Th } from '@storybook/components';
 import PrettyPropType from './types/PrettyPropType';
+
+// Table, Td, Th used to be included in @storybook/components 
+// but have been removed in version 5.0
+const Table = styled.table({
+  borderCollapse: 'collapse',
+});
+
+Table.displayName = 'Table';
+
+const dynamicStyles = ({ bordered, code }) => ({
+  ...(bordered ? { border: '1px solid #ccc' } : {}),
+  ...(code
+    ? {
+        whiteSpace: 'nowrap',
+        fontFamily: 'Monaco, Consolas, "Courier New", monospace',
+      }
+    : {}),
+});
+
+const styles = {
+  padding: '2px 6px',
+};
+
+export const Td = styled.td(styles, dynamicStyles);
+export const Th = styled.th(styles, dynamicStyles);
+
+Td.displayName = 'Td';
+Th.displayName = 'Th';
 
 export const multiLineText = input => {
   if (!input) {

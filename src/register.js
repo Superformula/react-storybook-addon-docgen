@@ -9,8 +9,8 @@ addons.register(ADDON_ID, (api) => {
   const channel = addons.getChannel();
   addons.addPanel(PANEL_ID, {
     title: 'Docs',
-    render: ({ active }) => {
-      return <DocPanel active={active} channel={channel} api={api} />;
+    render: ({ active, key }) => {
+      return <DocPanel key={key} active={active} channel={channel} api={api} />;
     },
   });
 });

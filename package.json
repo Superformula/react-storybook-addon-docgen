@@ -21,9 +21,9 @@
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.1.5",
-    "@storybook/addon-actions": "^4.0.7",
-    "@storybook/addon-info": "^4.0.0",
-    "@storybook/react": "^4.0.0",
+    "@storybook/addon-actions": "^5.0.5",
+    "@storybook/addon-info": "^5.0.5",
+    "@storybook/react": "^5.0.5",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "eslint": "^5.9.0",
@@ -32,9 +32,10 @@
     "react-dom": "^16.6.3"
   },
   "peerDependencies": {
-    "@storybook/addons": "^4.0.0"
+    "@storybook/addons": "^5.0.0"
   },
   "dependencies": {
+    "@emotion/styled": "^10.0.10",
     "github-markdown-css": "^2.4.1",
     "lodash.merge": "^4.6.1",
     "marked": "^0.3.6"

@@ -6,7 +6,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = PropTable;
-exports.multiLineText = void 0;
+exports.multiLineText = exports.Th = exports.Td = void 0;
+
+var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -16,9 +18,42 @@ require("core-js/fn/array/includes");
 
 var _marked = _interopRequireDefault(require("marked"));
 
-var _components = require("@storybook/components");
+var _styled = _interopRequireDefault(require("@emotion/styled"));
 
 var _PrettyPropType = _interopRequireDefault(require("./types/PrettyPropType"));
+
+// Table, Td, Th used to be included in @storybook/components 
+// but have been removed in version 5.0
+var Table = _styled.default.table({
+  borderCollapse: 'collapse'
+});
+
+Table.displayName = 'Table';
+
+var dynamicStyles = function dynamicStyles(_ref) {
+  var bordered = _ref.bordered,
+      code = _ref.code;
+  return (0, _objectSpread2.default)({}, bordered ? {
+    border: '1px solid #ccc'
+  } : {}, code ? {
+    whiteSpace: 'nowrap',
+    fontFamily: 'Monaco, Consolas, "Courier New", monospace'
+  } : {});
+};
+
+var styles = {
+  padding: '2px 6px'
+};
+
+var Td = _styled.default.td(styles, dynamicStyles);
+
+exports.Td = Td;
+
+var Th = _styled.default.th(styles, dynamicStyles);
+
+exports.Th = Th;
+Td.displayName = 'Td';
+Th.displayName = 'Th';
 
 var multiLineText = function multiLineText(input) {
   if (!input) {
@@ -67,23 +102,23 @@ function PropTable(props) {
     return _react.default.createElement("small", null, "No propTypes defined!");
   }
 
-  return _react.default.createElement(_components.Table, null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement(_components.Th, {
+  return _react.default.createElement(Table, null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement(Th, {
     bordered: true
-  }, "property"), _react.default.createElement(_components.Th, {
+  }, "property"), _react.default.createElement(Th, {
     bordered: true
-  }, "propType"), _react.default.createElement(_components.Th, {
+  }, "propType"), _react.default.createElement(Th, {
     bordered: true
-  }, "required"), _react.default.createElement(_components.Th, {
+  }, "required"), _react.default.createElement(Th, {
     bordered: true
-  }, "default"), _react.default.createElement(_components.Th, {
+  }, "default"), _react.default.createElement(Th, {
     bordered: true
   }, "description"))), _react.default.createElement("tbody", null, includedPropDefinitions.map(function (row) {
     return _react.default.createElement("tr", {
       key: row.property
-    }, _react.default.createElement(_components.Td, {
+    }, _react.default.createElement(Td, {
       bordered: true,
       code: true
-    }, row.property), _react.default.createElement(_components.Td, {
+    }, row.property), _react.default.createElement(Td, {
       bordered: true,
       code: true,
       style: {
@@ -92,9 +127,9 @@ function PropTable(props) {
       }
     }, _react.default.createElement(_PrettyPropType.default, {
       propType: row.propType
-    })), _react.default.createElement(_components.Td, {
+    })), _react.default.createElement(Td, {
       bordered: true
-    }, row.required ? 'yes' : '-'), _react.default.createElement(_components.Td, {
+    }, row.required ? 'yes' : '-'), _react.default.createElement(Td, {
       bordered: true,
       code: true,
       style: {
@@ -105,7 +140,7 @@ function PropTable(props) {
       style: {
         color: 'rgb(34, 34, 170)'
       }
-    }, row.defaultValue)), _react.default.createElement(_components.Td, {
+    }, row.defaultValue)), _react.default.createElement(Td, {
       bordered: true
     }, _react.default.createElement("div", {
       style: {
