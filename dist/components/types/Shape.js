@@ -25,7 +25,7 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _react = _interopRequireDefault(require("react"));
 
-var _components = require("@storybook/components");
+var _styled = _interopRequireDefault(require("@emotion/styled"));
 
 var _PrettyPropType = _interopRequireDefault(require("./PrettyPropType"));
 
@@ -34,6 +34,24 @@ var _PropertyLabel = _interopRequireDefault(require("./PropertyLabel"));
 var _proptypes = require("./proptypes");
 
 var MARGIN_SIZE = 15;
+
+var HighlightButton = _styled.default.button({
+  border: '1px solid rgba(0, 0, 0, 0)',
+  font: 'inherit',
+  background: 'none',
+  boxShadow: 'none',
+  padding: 0,
+  ':hover': {
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    border: '1px solid #ccc'
+  }
+}, function (_ref) {
+  var highlight = _ref.highlight;
+  return highlight ? [{
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    border: '1px solid #ccc'
+  }] : [];
+});
 
 var Shape =
 /*#__PURE__*/
@@ -78,12 +96,12 @@ function (_React$Component) {
           hover = _this$state.hover,
           minimized = _this$state.minimized;
       var propTypes = (0, _proptypes.getPropTypes)(propType);
-      return _react.default.createElement("span", null, _react.default.createElement(_components.HighlightButton, {
+      return _react.default.createElement("span", null, _react.default.createElement(HighlightButton, {
         onMouseEnter: this.handleMouseEnter,
         onMouseLeave: this.handleMouseLeave,
         highlight: hover,
         onClick: this.handleToggle
-      }, '{'), _react.default.createElement(_components.HighlightButton, {
+      }, '{'), _react.default.createElement(HighlightButton, {
         onClick: this.handleToggle
       }, "..."), !minimized && Object.keys(propTypes).map(function (childProperty) {
         return _react.default.createElement("div", {
@@ -98,7 +116,7 @@ function (_React$Component) {
           depth: depth + 1,
           propType: propTypes[childProperty]
         }), ",");
-      }), _react.default.createElement(_components.HighlightButton, {
+      }), _react.default.createElement(HighlightButton, {
         onMouseEnter: this.handleMouseEnter,
         onMouseLeave: this.handleMouseLeave,
         highlight: hover,
